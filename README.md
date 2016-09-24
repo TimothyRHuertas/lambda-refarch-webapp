@@ -1,3 +1,6 @@
+{vote: "RED"}
+
+
 # Serverless Reference Architecture: Web Applications
 README Languages:  [DE](README/README-DE.md) | [ES](README/README-ES.md) | [FR](README/README-FR.md) | [IT](README/README-IT.md) | [JP](README/README-JP.md) | [KR](README/README-KR.md) |
 [PT](README/README-PT.md) | [RU](README/README-RU.md) |

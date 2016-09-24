@@ -8,6 +8,5 @@
   },
   "author": "jeffnunn@amazon.com",
   "dependencies": {
-    "twilio": ">= 2.0.0"
   }
 }

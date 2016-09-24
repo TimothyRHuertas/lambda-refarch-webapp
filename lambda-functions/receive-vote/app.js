@@ -3,12 +3,12 @@ var AWS = require('aws-sdk');
 var dynamodb = new AWS.DynamoDB();
 
 exports.handler = function(event, context) {
-  var twilio = require('twilio');
+  // var twilio = require('twilio');
   var dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10', region: 'us-east-1'});
 
   /* Make sure we have a valid vote (one of [RED, GREEN, BLUE]) */
   console.log(event);
-  var votedFor = event['Body'].toUpperCase().trim();
+  var votedFor = event['vote'].toUpperCase().trim();
   if (['RED', 'GREEN', 'BLUE'].indexOf(votedFor) >= 0) {
     /* Add randomness to our value to help spread across partitions */
     votedForHash = votedFor + "." + Math.floor((Math.random() * 10) + 1).toString();
@@ -25,9 +25,9 @@ exports.handler = function(event, context) {
         console.log(err);
         context.fail(err);
       } else {
-        var resp = new twilio.TwimlResponse();
-        resp.message("Thank you for casting a vote for " + votedFor);
-        context.done(null, [resp.toString()]);
+        // var resp = new twilio.TwimlResponse();
+        // resp.message("Thank you for casting a vote for " + votedFor);
+        context.done(null, "success");
         console.log("Vote received for %s", votedFor);
       }
     });
