@@ -66,6 +66,16 @@ $(function() {
 
 /* Makes a scan of the DynamoDB table to set a data object for the chart */
 function getData() {
+  //west coastin
+  var offset = -8.0
+  var clientDate = new Date();
+  var utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
+  var d = new Date(utc + (3600000*offset));
+  var dayHash = d.getMonth() + "_" + d.getDay() + "_" + d.getFullYear();
+  var red = dayHash + "_RED";
+  var green = dayHash + "_GREEN";
+  var blue = dayHash + "_BLUE";
+
   dynamodb.scan(params, function(err, data) {
     if (err) {
       console.log(err);
@@ -76,13 +86,13 @@ function getData() {
       var blueCount = 0;
 
       for (var i in data['Items']) {
-        if (data['Items'][i]['VotedFor']['S'] == "RED") {
+        if (data['Items'][i]['VotedFor']['S'] == red) {
           redCount = parseInt(data['Items'][i]['Vote']['N']);
         }
-        if (data['Items'][i]['VotedFor']['S'] == "GREEN") {
+        if (data['Items'][i]['VotedFor']['S'] == green) {
           greenCount = parseInt(data['Items'][i]['Vote']['N']);
         }
-        if (data['Items'][i]['VotedFor']['S'] == "BLUE") {
+        if (data['Items'][i]['VotedFor']['S'] == blue) {
           blueCount = parseInt(data['Items'][i]['Vote']['N']);
         }
       }
