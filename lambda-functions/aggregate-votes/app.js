@@ -7,6 +7,12 @@ exports.handler = function(event, context) {
     var totalRed = 0;
     var totalGreen = 0;
     var totalBlue = 0;
+        //west coastin
+    var offset = -8.0
+    var clientDate = new Date();
+    var utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
+    var d = new Date(utc + (3600000*offset));
+    var dayHash = d.getMonth() + "_" + d.getDay() + "_" + d.getFullYear();
 
     event.Records.forEach(function(record) {
 
@@ -14,13 +20,13 @@ exports.handler = function(event, context) {
         var numVotes = record.dynamodb['NewImage']['Votes']['N'];
 
         // Determine the color on which to add the vote
-        if (votedForHash.indexOf("RED") > -1) {
+        if (votedForHash.indexOf(dayHash+"_RED") > -1) {
             votedFor = "RED";
             totalRed += parseInt(numVotes);
-        } else if (votedForHash.indexOf("GREEN") > -1) {
+        } else if (votedForHash.indexOf(dayHash+"_GREEN") > -1) {
             votedFor = "GREEN";
             totalGreen +=  parseInt(numVotes);
-        } else if (votedForHash.indexOf("BLUE") > -1) {
+        } else if (votedForHash.indexOf(dayHash+"_BLUE") > -1) {
             votedFor = "BLUE";
             totalBlue += parseInt(numVotes);
         } else {
@@ -32,13 +38,15 @@ exports.handler = function(event, context) {
     // votes received from this series of updates
 
     var aggregatesTable = 'VoteAppAggregates';
-    if (totalRed > 0) updateAggregateForColor("RED", totalRed);
-    if (totalBlue > 0) updateAggregateForColor("BLUE", totalBlue);
-    if (totalGreen > 0) updateAggregateForColor("GREEN", totalGreen);
+    if (totalRed > 0) updateAggregateForColor("RED", totalRed, dayHash);
+    if (totalBlue > 0) updateAggregateForColor("BLUE", totalBlue, dayHash);
+    if (totalGreen > 0) updateAggregateForColor("GREEN", totalGreen, dayHash);
 
     console.log('Updating Aggregates Table', totalRed);
 
-    function updateAggregateForColor(votedFor, numVotes) {
+    function updateAggregateForColor(votedFor, numVotes, dayHash) {
+        votedFor = dayHash + "_" + votedFor;
+
         console.log("Updating Aggregate Color ", votedFor);
         console.log("For NumVotes: ", numVotes);
 
