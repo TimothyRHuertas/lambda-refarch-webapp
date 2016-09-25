@@ -28,7 +28,11 @@ a {
 }
 
 .status {
-	padding-bottom: 20px;
+	padding-bottom: 10px;
+}
+
+.btn {
+	margin-top: 10px;
 }
 
 .action-block {
@@ -45,4 +49,12 @@ a {
 
 #loggedInHasNotVoted {
 	display: none;
+}
+
+#actions {
+	min-height: 35px;
+}
+
+body {
+	min-width: 640px;
 }

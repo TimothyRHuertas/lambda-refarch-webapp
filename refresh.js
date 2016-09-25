@@ -140,19 +140,19 @@ function getData() {
             value: redCount,
             color:"#e74c3c",
             highlight: "#c0392b",
-            label: "Red"
+            label: "Donald Trump"
         },
         {
             value: greenCount,
             color: "#2ecc71",
             highlight: "#27ae60",
-            label: "Green"
+            label: "Neither"
         },
         {
             value: blueCount,
             color: "#3498db",
             highlight: "#2980b9",
-            label: "Blue"
+            label: "Hillary Clinton"
         }
       ];
 
@@ -238,13 +238,15 @@ function loggedIn(hasVoted){
 
   if(hasVoted){
       document.getElementById("loggedInHasVoted").style.display = "block";
+      document.getElementById("loggedInHasNotVoted").style.display = "none";
   }
   else {
+      document.getElementById("loggedInHasVoted").style.display = "none";
       document.getElementById("loggedInHasNotVoted").style.display = "block";
     }
 }
 
-function castVote(){
+function castVote(color){
   var apigClient = apigClientFactory.newClient({
       accessKey: AWS.config.credentials.accessKeyId,
       secretKey: AWS.config.credentials.secretAccessKey,
@@ -252,8 +254,9 @@ function castVote(){
       region: 'us-east-1' // OPTIONAL: The region where the API is deployed, by default this parameter is set to us-east-1
   });
 
+  loggedIn(true);
   var params = {};
-  var body = {vote: "RED"};
+  var body = {vote: color};
   var additionalParams = {};
 
   apigClient.votePost(params, body, additionalParams)
