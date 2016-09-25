@@ -56,9 +56,30 @@ exports.handler = function(event, context) {
     var d = new Date(utc + (3600000*offset));
     var dayHash = d.getMonth() + "_" + d.getDay() + "_" + d.getFullYear();
     votedFor = dayHash + "_" + votedFor;
-    var votePersonEntry = dayHash + "_" + context.identity.cognitoIdentityId
+    var votePersonEntry = dayHash + "_" + context.identity.cognitoIdentityId;
 
-    castVote(context, dynamodb, votedFor, votePersonEntry);
+    dynamodb.getItem({
+        'TableName': "VotePerson",
+        'Key': { 'IdDateHash' : { 'S': votePersonEntry }}
+      }, function(err, data) {
+        if (err) {
+          console.log(err);
+          context.fail(err);
+        } 
+        else {
+          console.log("got back", data);
+
+          if(data && data.Item){
+            context.fail("duplicate vote attempt", votePersonEntry);
+          }
+          else {
+            castVote(context, dynamodb, votedFor, votePersonEntry);  
+          }
+          
+        }
+      });
+
+    
 
   } else {
     console.log("Invalid vote received (%s)", votedFor);
