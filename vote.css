@@ -1,0 +1,48 @@
+#graph {
+  margin-bottom: 20px;
+}
+
+a {
+  color: #ff9900;
+}
+
+.lead {
+  color: #c6c6c6;
+}
+
+.footer {
+	margin-top: 25px;
+}
+
+
+.btn-blue {
+	background: #3498db;
+}
+
+.btn-red {
+	background: #e74c3c;
+}
+
+.btn-green {
+	background: #2ecc71;
+}
+
+.status {
+	padding-bottom: 20px;
+}
+
+.action-block {
+	height: 730px;
+}
+
+#loggedOut {
+	display: none;
+}
+
+#loggedInHasVoted {
+	display: none;
+}
+
+#loggedInHasNotVoted {
+	display: none;
+}

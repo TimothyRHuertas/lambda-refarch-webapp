@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Vote App</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/css/bootstrap.min.css">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="narrow.css">
+    <link rel="stylesheet" href="vote.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.40.min.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.6.4.min.js"></script>
+
+    <script type="text/javascript" src="lib/axios/dist/axios.standalone.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/rollups/hmac-sha256.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/rollups/sha256.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/components/hmac.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/components/enc-base64.js"></script>
+    <script type="text/javascript" src="lib/url-template/url-template.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/sigV4Client.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/apiGatewayClient.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/simpleHttpClient.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/utils.js"></script>
+    <script type="text/javascript" src="apigClient.js"></script>
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="jumbotron2">
+        <h1>VoteApp</h1>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12"><canvas id="graph" class="inner cover" width="500" height="420"></canvas></div>
+      </div>
+
+      <div id="actions">
+        <div id="loggedInHasVoted">
+          <div class="row">
+            <div class="col-md-12">
+              <h5 class="status">Thanks for your vote</h5>
+            </div>
+          </div>
+        </div>
+
+        <div id="loggedInHasNotVoted">
+          <div class="row">
+            <div class="col-md-12">
+              <h5 id="status" class="status"></h5>
+            </div>
+          </div>
+          <div id="voteButtons" class="row">
+            <div class="col-md-4">
+              <button class="btn btn-blue">Hillary Clinton</button>
+            </div>
+            <div class="col-md-4">
+              <button class="btn btn-red">Donald Trump</button>
+            </div>
+            <div class="col-md-4">
+              <button class="btn btn-green">Neither</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="loggedOut" class="row">
+          <div class="col-md-12">
+            <h5 class="status">Log in to cast your vote.</h5>
+          </div>
+          <div class="col-md-12">
+            <fb:login-button id="loginButton" size="large" scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <p>Together we can create a movement.</p>
+      </footer>
+
+    </div> <!-- /container -->
+    <script src="refresh.js"></script>
+
+
+  </body>
+</html>

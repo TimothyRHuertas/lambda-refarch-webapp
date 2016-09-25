@@ -54,7 +54,7 @@ exports.handler = function(event, context) {
     var clientDate = new Date();
     var utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
     var d = new Date(utc + (3600000*offset));
-    var dayHash = d.getMonth() + "_" + d.getDay() + "_" + d.getFullYear();
+    var dayHash = d.getMonth() + "_" + d.getDate() + "_" + d.getFullYear();
     votedFor = dayHash + "_" + votedFor;
     var votePersonEntry = dayHash + "_" + context.identity.cognitoIdentityId;
 
