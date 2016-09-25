@@ -3,7 +3,11 @@ var AWS = require('aws-sdk');
 var dynamodb = new AWS.DynamoDB();
 
 exports.handler = function(event, context) {
-    console.log(JSON.stringify(context));
+  if(!context.identity || !context.identity.cognitoIdentityId) {
+    console.log("No id");
+    context.fail("No id");
+    return;
+  } 
   //console.log("clientID = " + context.identity.cognitoIdentityId);
   // var twilio = require('twilio');
   var dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10', region: 'us-east-1'});
@@ -18,6 +22,8 @@ exports.handler = function(event, context) {
     var utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
     var d = new Date(utc + (3600000*offset));
     var dayHash = d.getMonth() + "_" + d.getDay() + "_" + d.getFullYear();
+    var votePersonEntry = dayHash + "_" + context.identity.cognitoIdentityId
+
     votedFor = dayHash + "_" + votedFor;
     /* Add randomness to our value to help spread across partitions */
     votedForHash = votedFor + "." + Math.floor((Math.random() * 10) + 1).toString();
@@ -33,13 +39,30 @@ exports.handler = function(event, context) {
       if (err) {
         console.log(err);
         context.fail(err);
-      } else {
-        // var resp = new twilio.TwimlResponse();
-        // resp.message("Thank you for casting a vote for " + votedFor);
-        context.done(null, "success");
-        console.log("Vote received for %s", votedFor);
+      } 
+      else {
+        console.log("updating vote id", votePersonEntry);
+
+        dynamodb.putItem({
+          'TableName': "VotePerson",
+          'Item': { 'IdDateHash' : { 'S': votePersonEntry }}
+        }, function(err, data) {
+          if (err) {
+            console.log(err);
+            context.fail(err);
+          } 
+          else {
+            context.done(null, "{'status': 'success'}");
+            console.log("Vote received for %s by %s", votedFor, votePersonEntry);
+          }
+        });
+
       }
     });
+
+    
+
+
   } else {
     console.log("Invalid vote received (%s)", votedFor);
     context.fail("Invalid vote received");
