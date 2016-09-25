@@ -16,22 +16,25 @@ exports.handler = function(event, context) {
 
     event.Records.forEach(function(record) {
 
-        var votedForHash = record.dynamodb['NewImage']['VotedFor']['S'];
-        var numVotes = record.dynamodb['NewImage']['Votes']['N'];
+        if(record.dynamodb['NewImage']){
+                var votedForHash = record.dynamodb['NewImage']['VotedFor']['S'];
+            var numVotes = record.dynamodb['NewImage']['Votes']['N'];
 
-        // Determine the color on which to add the vote
-        if (votedForHash.indexOf(dayHash+"_RED") > -1) {
-            votedFor = "RED";
-            totalRed += parseInt(numVotes);
-        } else if (votedForHash.indexOf(dayHash+"_GREEN") > -1) {
-            votedFor = "GREEN";
-            totalGreen +=  parseInt(numVotes);
-        } else if (votedForHash.indexOf(dayHash+"_BLUE") > -1) {
-            votedFor = "BLUE";
-            totalBlue += parseInt(numVotes);
-        } else {
-            console.log("Invalid vote: ", votedForHash);
+            // Determine the color on which to add the vote
+            if (votedForHash.indexOf(dayHash+"_RED") > -1) {
+                votedFor = "RED";
+                totalRed += parseInt(numVotes);
+            } else if (votedForHash.indexOf(dayHash+"_GREEN") > -1) {
+                votedFor = "GREEN";
+                totalGreen +=  parseInt(numVotes);
+            } else if (votedForHash.indexOf(dayHash+"_BLUE") > -1) {
+                votedFor = "BLUE";
+                totalBlue += parseInt(numVotes);
+            } else {
+                console.log("Invalid vote: ", votedForHash);
+            }
         }
+        
     });
 
     // Update the aggregation table with the total of RED, GREEN, and BLUE
