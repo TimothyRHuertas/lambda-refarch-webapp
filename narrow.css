@@ -7,6 +7,14 @@ body {
   text-shadow: 0 1px 3px rgba(0,0,0,.5);
   padding-top: 20px;
   padding-bottom: 20px;
+
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -16,6 +24,7 @@ body {
   padding-right: 15px;
   padding-left: 15px;
 }
+
 
 /* Custom page header */
 .header {
@@ -36,12 +45,7 @@ body {
   border-top: 1px solid #e5e5e5;
 }
 
-/* Customize container */
-@media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-}
+
 .container-narrow > hr {
   margin: 30px 0;
 }
@@ -64,21 +68,89 @@ body {
   margin-top: 28px;
 }
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-right: 0;
-    padding-left: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+
+#graph {
+  box-sizing: border-box;
+  /*max-width: 100%*/
 }
+
+* {
+  font-family: "Myriad Set Pro","Helvetica Neue","Helvetica","Arial",sans-serif;
+}
+
+a {
+  color: #ff9900;
+}
+
+.lead {
+  color: #c6c6c6;
+}
+
+.footer {
+  margin-top: 25px;
+}
+
+
+.btn-blue {
+  background: #3498db;
+}
+
+.btn-red {
+  background: #e74c3c;
+}
+
+.btn-green {
+  background: #2ecc71;
+}
+
+.status {
+  padding-bottom: 10px;
+}
+
+.btn {
+  margin: 0 10px;
+  width: 69px;
+}
+
+#actions {
+  min-height: 83px;
+  max-height: 83px;
+  height: 83px;
+  position: relative;
+}
+
+.action-block {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out;
+}
+
+#loggedOut h4{
+  font-size: 20px;
+  margin-top: 16px;
+}
+
+#loggedInHasVoted h4{
+  font-size: 22px;
+  margin-top: 30px;
+}
+
+.showing {
+  opacity: 1;
+  z-index: 100;
+}
+
+footer {
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+

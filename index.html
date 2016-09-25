@@ -14,7 +14,6 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="narrow.css">
-    <link rel="stylesheet" href="vote.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -42,50 +41,32 @@
 
   <body>
 
-    <div class="container">
+    <div>
       <div class="jumbotron2">
         <h2>If we all vote</h2>
       </div>
 
-      <div class="row">
-        <div class="col-md-12"><canvas id="graph" class="inner cover" width="500" height="420"></canvas></div>
-      </div>
+      <canvas id="graph" class="inner cover"></canvas>
 
       <div id="actions">
-        <div id="loggedInHasVoted">
-          <div class="row">
-            <div class="col-md-12">
-              <h5>Thanks for your vote</h5>
-            </div>
-          </div>
+        <div id="loggedInHasVoted" class="action-block">
+          <h4>Thanks for your vote.</h4>
+          <p>Come back tomorrow to cast another vote.</p>
         </div>
 
-        <div id="loggedInHasNotVoted">
-          <div class="row">
-            <div class="col-md-12">
-              <h5 id="status" class="status"></h5>
-            </div>
-          </div>
+        <div id="loggedInHasNotVoted" class="action-block">
+          <h4 id="status" class="status"></h4>
+
           <div id="voteButtons" class="row">
-            <div class="col-md-4">
-              <button onclick="castVote('BLUE')" class="btn btn-blue">Hillary Clinton</button>
-            </div>
-            <div class="col-md-4">
-              <button onclick="castVote('RED')" class="btn btn-red">Donald Trump</button>
-            </div>
-            <div class="col-md-4">
-              <button onclick="castVote('GREEN')" class="btn btn-green">Neither</button>
-            </div>
+            <button onclick="castVote('BLUE')" class="btn btn-blue">Clinton</button>
+            <button onclick="castVote('RED')" class="btn btn-red">Trump</button>
+            <button onclick="castVote('GREEN')" class="btn btn-green">Neither</button>
           </div>
         </div>
 
-        <div id="loggedOut" class="row">
-          <div class="col-md-12">
-            <h5 class="status">Log in to cast your vote.</h5>
-          </div>
-          <div class="col-md-12">
-            <fb:login-button id="loginButton" size="large" scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
-          </div>
+        <div id="loggedOut" class="action-block">
+          <h4 class="status">Log in to cast your vote.</h4>
+          <fb:login-button id="loginButton" size="large" scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
         </div>
       </div>
 

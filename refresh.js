@@ -21,7 +21,8 @@ var dynamodb = new AWS.DynamoDB();
 var params = { TableName: 'VoteAppAggregates' };
 
 /* Create the context for applying the chart to the HTML canvas */
-var ctx = $("#graph").get(0).getContext("2d");
+var g = $("#graph").get(0);
+var ctx = g.getContext("2d");
 
 /* Set the options for our chart */
 var options = { segmentShowStroke : false,
@@ -30,7 +31,9 @@ var options = { segmentShowStroke : false,
                 showToolTips: true,
                 tooltipEvents: ["mousemove", "touchstart", "touchmove"],
                 tooltipFontColor: "#fff",
-								animationEasing : 'easeOutCirc'
+								animationEasing : 'easeOutCirc',
+                responsive: true,
+                maintainAspectRatio: true
               }
 
 /* Set the initial data */
@@ -39,19 +42,19 @@ var init = [
       value: 1,
       color: "#e74c3c",
       highlight: "#c0392b",
-      label: "Red"
+      label: "Donald Trump"
   },
   {
       value: 1,
       color: "#2ecc71",
       highlight: "#27ae60",
-      label: "Green"
+      label: "Neither"
   },
   {
       value: 1,
       color: "#3498db",
       highlight: "#2980b9",
-      label: "Blue"
+      label: "Hillary Clinton"
   }
 ];
 
@@ -189,8 +192,7 @@ function statusChangeCallback(response) {
 
     if (response.authResponse) {
       console.log('You are now logged in.');
-      // document.getElementById("loginButton").style.display = "none";
-      
+     
       // Add the Facebook access token to the Cognito credentials login map.
       AWS.config.region = 'us-east-1'; // Region
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -227,23 +229,23 @@ function statusChangeCallback(response) {
 }
 
 function loggedOut(){
-  document.getElementById("loggedOut").style.display = "block";
-  document.getElementById("loggedInHasNotVoted").style.display = "none";
-  document.getElementById("loggedInHasVoted").style.display = "none";
+  $("#loggedOut").addClass("showing");
+  $("#loggedInHasNotVoted").removeClass("showing");
+  $("#loggedInHasVoted").removeClass("showing");
 
 }
 
 function loggedIn(hasVoted){
-  document.getElementById("loggedOut").style.display = "none";
+  $("#loggedOut").removeClass("showing");
 
   if(hasVoted){
-      document.getElementById("loggedInHasVoted").style.display = "block";
-      document.getElementById("loggedInHasNotVoted").style.display = "none";
+      $("#loggedInHasVoted").addClass("showing");
+      $("#loggedInHasNotVoted").removeClass("showing");
   }
   else {
-      document.getElementById("loggedInHasVoted").style.display = "none";
-      document.getElementById("loggedInHasNotVoted").style.display = "block";
-    }
+      $("#loggedInHasVoted").removeClass("showing");
+      $("#loggedInHasNotVoted").addClass("showing");
+  }
 }
 
 function castVote(color){
