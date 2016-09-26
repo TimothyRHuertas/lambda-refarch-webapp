@@ -20,55 +20,54 @@ AWS.config.credentials = new AWS.CognitoIdentityCredentials({
 var dynamodb = new AWS.DynamoDB();
 var params = { TableName: 'VoteAppAggregates' };
 
-/* Create the context for applying the chart to the HTML canvas */
-var g = $("#graph").get(0);
-var ctx = g.getContext("2d");
+function buildChart(){
+    /* Create the context for applying the chart to the HTML canvas */
+  var g = $("#graph").get(0);
+  var ctx = g.getContext("2d");
 
-/* Set the options for our chart */
-var options = { segmentShowStroke : false,
-								animateScale: true,
-								percentageInnerCutout : 50,
-                showToolTips: true,
-                tooltipEvents: ["mousemove", "touchstart", "touchmove"],
-                tooltipFontColor: "#fff",
-								animationEasing : 'easeOutCirc',
-                responsive: true,
-                maintainAspectRatio: true
-              }
+  /* Set the options for our chart */
+  var options = { segmentShowStroke : false,
+                  animateScale: true,
+                  percentageInnerCutout : 50,
+                  showToolTips: true,
+                  tooltipEvents: ["mousemove", "touchstart", "touchmove"],
+                  tooltipFontColor: "#fff",
+                  animationEasing : 'easeOutCirc',
+                  responsive: true,
+                  maintainAspectRatio: true
+                }
 
-/* Set the initial data */
-var init = [
-  {
-      value: 1,
-      color: "#e74c3c",
-      highlight: "#c0392b",
-      label: "Donald Trump"
-  },
-  {
-      value: 1,
-      color: "#2ecc71",
-      highlight: "#27ae60",
-      label: "Neither"
-  },
-  {
-      value: 1,
-      color: "#3498db",
-      highlight: "#2980b9",
-      label: "Hillary Clinton"
-  }
-];
+  /* Set the initial data */
+  var init = [
+    {
+        value: 1,
+        color: "#e74c3c",
+        highlight: "#c0392b",
+        label: "Donald Trump"
+    },
+    {
+        value: 1,
+        color: "#2ecc71",
+        highlight: "#27ae60",
+        label: "Neither"
+    },
+    {
+        value: 1,
+        color: "#3498db",
+        highlight: "#2980b9",
+        label: "Hillary Clinton"
+    }
+  ];
 
-graph = new Chart(ctx).Doughnut(init, options);
+  graph = new Chart(ctx).Doughnut(init, options);
+}
 
 $(function() {
+  buildChart();
   getData();
   $.ajaxSetup({ cache: false });
   /* Get the data every 3 seconds */
-  setInterval(getData, 3000);  
-
-  setTimeout(function(){
-  }, 1000);
-  
+  setInterval(getData, 3000);   
 });
 
 function getVotedStatus(callback){
