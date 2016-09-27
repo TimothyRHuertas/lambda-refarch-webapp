@@ -93,11 +93,11 @@ function getVotedStatus(callback){
 
       if(data && data.Item){
         callback(true);
-        console.log("you voted");
+        // console.log("you voted");
       }
       else {
         callback(false);
-        console.log("you not voted"); 
+        // console.log("you not voted"); 
       }
       
     }
@@ -178,8 +178,8 @@ function getData() {
 ///non chart stuff
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback(response) {
-  console.log('statusChangeCallback');
-  console.log(response);
+  // console.log('statusChangeCallback');
+  // console.log(response);
   // The response object is returned with a status field that lets the
   // app know the current login status of the person.
   // Full docs on the response object can be found in the documentation
@@ -187,7 +187,7 @@ function statusChangeCallback(response) {
   if (response.status === 'connected') {
 
     if (response.authResponse) {
-      console.log('You are now logged in.');
+      // console.log('You are now logged in.');
      
       // Add the Facebook access token to the Cognito credentials login map.
       AWS.config.region = 'us-east-1'; // Region
@@ -202,7 +202,7 @@ function statusChangeCallback(response) {
       AWS.config.credentials.get(function(){
           getVotedStatus(function(hasVoted){
             loggedIn(hasVoted);
-            console.log("hasVoted", hasVoted);
+            // console.log("hasVoted", hasVoted);
           });
       });
 
@@ -259,7 +259,7 @@ function castVote(color){
 
   apigClient.votePost(params, body, additionalParams)
       .then(function(result){
-          console.log(result.data, arguments)
+          // console.log(result.data, arguments)
       }).catch( function(result){
           console.log("no", arguments)
 
@@ -320,9 +320,9 @@ setTimeout(function(){
 // Here we run a very simple test of the Graph API after login is
 // successful.  See statusChangeCallback() for when this call is made.
 function testAPI() {
-  console.log('Welcome!  Fetching your information.... ');
+  // console.log('Welcome!  Fetching your information.... ');
   FB.api('/me', function(response) {
-    console.log('Successful login for: ' + response.name);
+    // console.log('Successful login for: ' + response.name);
     document.getElementById('status').innerHTML =
       'Hi ' + response.name + '. Click to cast your vote.';
   });
