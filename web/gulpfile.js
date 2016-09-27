@@ -19,6 +19,7 @@ var jsFiles = ['jquery.min.js'
 	,'lib/apiGatewayCore/simpleHttpClient.js'
 	,'lib/apiGatewayCore/utils.js'
 	,'apigClient.js'
+	// ,'share-button.min.js'
 	,'refresh.js'],  
     jsDest = '';
 

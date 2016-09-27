@@ -2480,6 +2480,7 @@ function buildChart(){
 }
 
 $(function() {
+  // new ShareButton();
   buildChart();
   getData();
   $.ajaxSetup({ cache: false });
