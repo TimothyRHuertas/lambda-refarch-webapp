@@ -34,32 +34,36 @@ function buildChart(){
                   tooltipFontColor: "#fff",
                   animationEasing : 'easeOutCirc',
                   responsive: true,
-                  maintainAspectRatio: true
+                  maintainAspectRatio: true,
+                  legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li style=\"color:<%=segments[i].fillColor%>\"><%=segments[i].label%></li><%}%></ul>"
+               
                 }
 
   /* Set the initial data */
   var init = [
     {
         value: 1,
+        color: "#3498db",
+        highlight: "#2980b9",
+        label: "Clinton"
+    },
+    {
+        value: 1,
         color: "#e74c3c",
         highlight: "#c0392b",
-        label: "Donald Trump"
+        label: "Trump"
     },
     {
         value: 1,
         color: "#2ecc71",
         highlight: "#27ae60",
         label: "Neither"
-    },
-    {
-        value: 1,
-        color: "#3498db",
-        highlight: "#2980b9",
-        label: "Hillary Clinton"
     }
   ];
 
   graph = new Chart(ctx).Doughnut(init, options);
+
+  document.getElementById("legend").innerHTML = graph.generateLegend();
 }
 
 $(function() {
@@ -140,22 +144,13 @@ function getData() {
 
       var data = [
         {
-            value: redCount,
-            color:"#e74c3c",
-            highlight: "#c0392b",
-            label: "Donald Trump"
+            value: blueCount
         },
         {
-            value: greenCount,
-            color: "#2ecc71",
-            highlight: "#27ae60",
-            label: "Neither"
+            value: redCount
         },
         {
-            value: blueCount,
-            color: "#3498db",
-            highlight: "#2980b9",
-            label: "Hillary Clinton"
+            value: greenCount
         }
       ];
 
@@ -169,6 +164,7 @@ function getData() {
         graph.segments[1].value = data[1].value;
         graph.segments[2].value = data[2].value;
         graph.update();
+        document.getElementById("legend").innerHTML = graph.generateLegend();
       }
 
     }

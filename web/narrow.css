@@ -117,4 +117,28 @@ footer {
   margin-top: 20px;
 }
 
+#legend {
+  overflow: auto;
+}
+
+#legend li span{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 1px;
+
+}
+
+#legend li {
+    display: inline;
+    padding: 0 2px;
+}
+
+#legend ul {
+  list-style-type: none;
+  overflow: auto;
+  padding: 0;
+  margin-bottom: 0;
+}
+
 
