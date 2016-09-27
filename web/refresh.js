@@ -76,9 +76,7 @@ $(function() {
 });
 
 function getVotedStatus(callback){
-  var dayHash = getDayHash();
-
-  var votePersonEntry = dayHash + "_" + AWS.config.credentials.identityId;
+  var votePersonEntry = AWS.config.credentials.identityId;
 
   
   dynamodb.getItem({
@@ -104,22 +102,11 @@ function getVotedStatus(callback){
   });
 }
 
-function getDayHash(){
-  var offset = -8.0
-  var clientDate = new Date();
-  var utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
-  var d = new Date(utc + (3600000*offset));
-  var dayHash = d.getMonth() + "_" + d.getDate() + "_" + d.getFullYear();
-
-  return dayHash;
-}
-
 /* Makes a scan of the DynamoDB table to set a data object for the chart */
 function getData() {
-  var dayHash = getDayHash();
-  var red = dayHash + "_RED";
-  var green = dayHash + "_GREEN";
-  var blue = dayHash + "_BLUE";
+  var red = "RED";
+  var green = "GREEN";
+  var blue = "BLUE";
 
   dynamodb.scan(params, function(err, data) {
     if (err) {
