@@ -50,13 +50,8 @@ exports.handler = function(event, context) {
   var votedFor = event['vote'].toUpperCase().trim();
 
   if (['RED', 'GREEN', 'BLUE'].indexOf(votedFor) >= 0) {
-    var offset = -8.0
-    var clientDate = new Date();
-    var utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
-    var d = new Date(utc + (3600000*offset));
-    var dayHash = d.getMonth() + "_" + d.getDate() + "_" + d.getFullYear();
-    votedFor = dayHash + "_" + votedFor;
-    var votePersonEntry = dayHash + "_" + context.identity.cognitoIdentityId;
+    votedFor = votedFor;
+    var votePersonEntry = context.identity.cognitoIdentityId;
 
     dynamodb.getItem({
         'TableName': "VotePerson",
