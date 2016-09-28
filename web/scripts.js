@@ -2504,7 +2504,7 @@ function getVotedStatus(callback){
       console.log(err);
     } 
     else {
-      console.log("got back", data);
+      // console.log("got back", data);
 
       if(data && data.Item){
         callback(true);
